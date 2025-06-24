@@ -1,0 +1,23 @@
+<div class="flex h-full bg-gray-100 items-center justify-center" id="full-cover-background">
+    <div id="centered-block" class="bg-white p-6 rounded-xl shadow-md">
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()"> <!-- form[type]relie ici avec fichier login.ts-->
+            <h2 class="text-center">Login</h2>
+            <div id="email-container">
+                <mat-form-field>
+                    <mat-label>Email</mat-label>
+                    <input matInput formControlName="username" type="email" placeholder="Email" />
+                </mat-form-field>    <!--formControlName reprend l'attribut de loginForm dans login.ts-->
+            </div>
+
+            <div id="password-container">
+                <mat-form-field>
+                    <mat-label>Password</mat-label>
+                    <input matInput formControlName="password" type="password" placeholder="Password">
+                </mat-form-field>
+            </div>
+            <button mat-flat-button type="submit" class="w-full">
+                Log In
+            </button>
+        </form>
+    </div>
+</div>

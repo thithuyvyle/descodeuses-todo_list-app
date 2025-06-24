@@ -1,0 +1,24 @@
+
+<mat-card class="h-full flex flex-col">
+    <form [formGroup]="formGroup" (ngSubmit)="onAddTodo()">
+        <div id="barre-saisie" class="flex gap-5 m-6">
+            <mat-form-field class="flex-1">
+                <input formControlName="nom" matInput placeholder="Add id, last name, first name and gender">  
+            </mat-form-field>
+            <button mat-fab type="submit"> <!-- fab: floating action button-->
+                <mat-icon>add</mat-icon>
+            </button>
+        </div>
+    </form>
+
+    <div id="users-list" >
+        <mat-list>
+            @for(user of users; track user){
+                <mat-list-item>
+                    <span>{{user.id}}, {{user.lastName}}, {{user.firstName}}, {{user.genre}} </span>
+                </mat-list-item>
+            }
+        </mat-list>
+
+    </div>
+</mat-card>

@@ -1,0 +1,11 @@
+:root {
+    --mat-sys-primary: light-dark(var(--color-red-400), var(--color-red-800));
+    --mat-sys-primary-container: light-dark(var(--color-red-300), var(--color-red-400));
+    --mdc-filled-text-field-container-color: var(--color-slate-200);
+    --mat-sys-on-primary-container:var(--color-slate-100);
+    --mat-sidenav-content-text-color:var(--color-red-400);
+    --mdc-icon-button-icon-color:var(--color-red-400);
+    --mat-sys-on-surface:var(--color-rose-800);
+
+
+}

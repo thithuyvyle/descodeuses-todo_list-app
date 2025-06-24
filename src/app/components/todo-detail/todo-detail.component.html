@@ -1,0 +1,56 @@
+<!-- @if(formGroup = !null) { }-->
+<!--formGroup peut etre nulle car il est initialisé au moment du subscribe qui est async. -->
+<!-- async: résultat de l'API ne vient pas tout de suite-->
+<mat-card class="flex-1 items-center p-6 rounded-xl shadow-md">
+    <mat-card-header>
+        <mat-card-title class="text-center"> To do details </mat-card-title>
+    </mat-card-header>
+    <mat-card-content *ngIf="formGroup">
+        <form [formGroup]="formGroup" class="m-6" (ngSubmit)="onSubmitTodo()">
+            <div>
+                <mat-form-field class="w-full">
+                    <mat-label> Title </mat-label>
+                    <input formControlName="title" matInput type="text" placeholder="title">
+                </mat-form-field>
+            </div>
+
+            <div>
+                <mat-form-field class="w-full">
+                    <mat-label> Priority </mat-label>
+                    <mat-select formControlName="priority">
+                        @for (item of listPriority; track item.value) {
+                        <!-- track: It refers to a function used to track list items by a unique identifier to help Angular efficiently detect and update changes.-->
+                        <mat-option [value]="item.value">{{item.priority}}</mat-option>
+                        }
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+            <div>
+                <mat-form-field class="w-full">
+                    <mat-label>Due Date</mat-label>
+                    <input formControlName="dueDate" matInput [matDatepicker]="picker">
+                    <!--<mat-hint> DD/MM/YY </mat-hint>-->
+                    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+            </div>
+
+            <div>
+                <mat-form-field class="w-full">
+                    <mat-label>Description</mat-label> <!--.cdkTextareaAutosize: s'étend avec longueur texte ( enlève le scroll sauf si dkAutosizeMinRows="" ou ...maxRows="")-->
+                    <textarea matInput cdkTextareaAutosize formControlName="description"></textarea>
+                </mat-form-field>
+            </div>
+
+            <div class="m-4">
+                <mat-checkbox formControlName="completed"> Completed </mat-checkbox>
+            </div>
+            <mat-card-actions class="flex justify-between">
+                <button mat-flat-button type="submit" [disabled]="formGroup.pristine">Save</button>
+                <!--.pristine: si pas de changement ds form-->
+                <button mat-flat-button type="button" routerLink="">Cancel</button>
+            </mat-card-actions>
+        </form>
+    </mat-card-content>
+</mat-card>

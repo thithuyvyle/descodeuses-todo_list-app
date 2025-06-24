@@ -1,0 +1,50 @@
+<div class="h-screen">
+    <div class="flex items-center justify-center h-screen">
+        <form [formGroup]="signupForm" (ngSubmit)="onSubmit()" class="shadow-2xl p-10 bg bg-white rounded-4xl" >
+            <h1 class="text-center"> Sign Up</h1>
+            <div>
+                <mat-form-field>
+                    <mat-label> Last Name </mat-label>
+                    <input formControlName="lastname" matInput type="text" placeholder="Last Name">
+                </mat-form-field>
+            </div>
+            <div>
+                <mat-form-field>
+                    <mat-label> First Name </mat-label>
+                    <input formControlName="firstname" matInput type="text" placeholder="First Name">
+                </mat-form-field>
+            </div>
+            <div>
+               <!-- <mat-form-field>
+                    <mat-label> Genre </mat-label>
+                    <mat-select formControlName="genre">
+                        <mat-option value="Female">Female</mat-option>
+                        <mat-option value="Male">Male</mat-option>
+                    </mat-select>
+                </mat-form-field>-->
+                <mat-form-field>
+                    <mat-label>Genre</mat-label>
+                    <mat-select formControlName="genre">
+                        <!--@for : directive conditionnelle, genre: variable , track: MAJ si genre.value change-->
+                        @for (genre of listGenre; track genre.value) { <!-- track: It refers to a function used to track list items by a unique identifier to help Angular efficiently detect and update changes.-->
+                            <mat-option [value]="genre.value">{{genre.text}}</mat-option>
+                        }
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div>
+                <mat-form-field>
+                    <mat-label> Login User </mat-label>
+                    <input formControlName="email" matInput type="email" placeholder="Login email">
+                </mat-form-field>
+            </div>
+            <div>
+                <mat-form-field>
+                    <mat-label> Password </mat-label>
+                    <input formControlName="password" matInput type="password" placeholder="Min. 8 characters">
+                </mat-form-field>  
+            </div>
+            <button [disabled]="signupForm.invalid" mat-flat-button type="submit" class="w-full"> Sign Up </button>
+        </form>
+    </div>
+</div>
