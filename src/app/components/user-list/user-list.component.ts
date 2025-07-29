@@ -20,11 +20,12 @@ export class UserListComponent implements OnInit {
       lastName: ["", [Validators.required]],
       firstName: ["", [Validators.required]],
       genre: ["", [Validators.required]],
+      
     });
   }
 
   ngOnInit(): void {
-    this.userService.getUsers().subscribe((data) => {
+    this.userService.getAllUsers().subscribe((data) => {
       this.users= data;
     })
   }

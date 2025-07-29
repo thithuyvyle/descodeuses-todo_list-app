@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SignUpComponent } from './sign-up.component';
 
-describe('SignUpComponent', () => {
+describe('SignUpComponent', () => { 
   let component: SignUpComponent;
   let fixture: ComponentFixture<SignUpComponent>;
 
@@ -20,4 +20,9 @@ describe('SignUpComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('formulaire invalide si firstName vide',()=> {
+    component.signupForm.controls['firstName'].setValue('');
+    expect(component.signupForm.valid).toBeFalse();
+  })
 });

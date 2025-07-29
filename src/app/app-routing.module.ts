@@ -19,7 +19,7 @@ const routes: Routes = [
   {path:'user', component: UserListComponent},
   {path:'todo-detail/:id', component: TodoDetailComponent},
   {path:'todo-table', component: TodoTableComponent },
-  {path:'dashboard', component: DashboardComponent, canActivate: [authGuard] } // pour cacher la page si pas loggué
+  {path:'dashboard', component: DashboardComponent, canActivate: [authGuard] } //  cacher la page si pas loggué
 
 ];
 

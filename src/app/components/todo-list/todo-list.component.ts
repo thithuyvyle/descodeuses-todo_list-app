@@ -29,7 +29,7 @@ export class TodoListComponent implements OnInit {
   fetchTodo() {
     this.todoService.getTodos().subscribe((data) => {
       this.todos = data;
-    })
+    }) 
   }
 
   //ajouter un item
@@ -43,8 +43,11 @@ export class TodoListComponent implements OnInit {
         priority: null,
         dueDate: null,
         description: null,
+        memberIds: [],
+        projectId:null,
+        userConnectedId: null,
       };
-
+      
       this.todoService.addTodo(todo).subscribe(data => {
         this.fetchTodo(); //actualise liste après ajout
       });
@@ -64,7 +67,7 @@ export class TodoListComponent implements OnInit {
   onUpdateTodo(event: MatCheckboxChange, todo: Todo) {
     todo.completed = event.checked;
     console.log(todo);
-    this.todoService.updateTodo(todo).subscribe((data) => { // maj ds  l'API
+    this.todoService.updateTodo(todo).subscribe((data) => { // maj ds l'API
       this.snackBar.open('Updated!', "", { duration: 2000 });
       this.fetchTodo();
     })

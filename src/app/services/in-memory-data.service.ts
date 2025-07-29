@@ -13,13 +13,12 @@ export class InMemoryDataService implements InMemoryDataService{ //package in-me
 
   createDb() {
     const todos : Todo[] = [
-      {id:1, title: 'Learn Angular', completed: false, priority: 1, dueDate: new Date(), description: "learn Angular "},
-      {id:2, title: 'Apply Angular', completed: false, priority: 2, dueDate: new Date(), description: "apply angular"},
-      {id:3, title: 'Learn CSS ', completed: false, priority: 3, dueDate: new Date(2025, 5, 1), description: "CSS"},
-      {id:4, title: 'Learn JavaScript', completed: false, priority: 3, dueDate: new Date(2025, 5, 4), description: "JS"},
-    ];
+    /*  {id:1, title: 'Learn Angular', completed: false, priority: 1, dueDate: new Date(), description: "learn Angular",memberIds:[] , projectId:null, userConnected: false},
+  
+    */
+      ];
     const users : User[] = [
-      {id: 123456 ,lastName:'Dupont', firstName:'Marie', genre:'F'},
+      /*{id: 123456 ,lastName:'Dupont', firstName:'Marie', genre:'F'},*/
     ];
     return {todos, users}; // lien endpoint api/todos
     

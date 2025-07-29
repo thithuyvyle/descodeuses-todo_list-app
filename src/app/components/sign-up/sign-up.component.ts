@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
+import { AuthService } from '../../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sign-up',
@@ -10,28 +12,51 @@ import { MatButton } from '@angular/material/button';
 })
 
 export class SignUpComponent implements OnInit {
-  signupForm! : FormGroup;
-  constructor (private fb: FormBuilder){
+  signupForm!: FormGroup;
+  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
   }
   // ajouter list dans select ici (tableau valeurs)
-  listGenre= [
-    {text: 'Female', value: 'F'},
-    {text: 'Male', value: 'M'}
+  listGenre = [
+    { text: 'Female', value: 'F' },
+    { text: 'Male', value: 'M' }
   ]
 
   ngOnInit(): void {
     this.signupForm = this.fb.group({
-      lastname: ["", [Validators.required]],
-      firstname: ["", [Validators.required]],
+      lastname: [""],
+      firstname: [""],
       email: ["", [Validators.required, Validators.email]],
-      password: ["", [Validators.required, Validators.minLength(8)]],
-      genre: ["", [Validators.required]],
+      password: ["", [Validators.required]], // Validators.minLength(8)
+      genre: [""],
     })
   }
 
   onSubmit() {
-      console.log(this.signupForm.value); // récup value des input
-  
-  }
+     if (this.signupForm.valid) {
+    const userData = {
+      username: this.signupForm.value.email, 
+      password: this.signupForm.value.password,
+      lastname:this.signupForm.value.lastname,
+      firstname: this.signupForm.value.firstname,
+      genre: this.signupForm.value.genre,
+      role: 'ROLE_USER' // ou 'USER' selon ce qu’attend Spring
+    };
 
+    this.authService.registerUser(userData).subscribe({
+      next: (response) => {
+        console.log('Utilisateur enregistré avec succès', response);
+        this.router.navigateByUrl('');
+      },
+      error: (error) => {
+        console.error('Erreur lors de l\'enregistrement', error);
+      }
+    });
+  } else {
+    this.signupForm.markAllAsTouched();
+  }
+   
+    }
+
+
+  
 }

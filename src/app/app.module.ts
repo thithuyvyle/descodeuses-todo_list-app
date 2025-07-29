@@ -19,7 +19,7 @@ import {MatCardModule} from '@angular/material/card';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {HttpClientInMemoryWebApiModule} from 'angular-in-memory-web-api';
 import { InMemoryDataService } from './services/in-memory-data.service';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { UserListComponent } from './components/user-list/user-list.component';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { RouterLink } from '@angular/router';
@@ -30,6 +30,9 @@ import { provideNativeDateAdapter } from '@angular/material/core';
 import {MatTableModule} from '@angular/material/table';
 import { TodoTableComponent } from './components/todo-table/todo-table.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import {MatChipsModule} from '@angular/material/chips';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { authInterceptor } from './auth/auth.interceptor';
 
 
 @NgModule({
@@ -64,21 +67,25 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
     MatDatepickerModule,
     MatNativeDateModule,
     MatTableModule,
- 
+    MatAutocompleteModule,
+    MatChipsModule,
+    
     
   ],
   providers: [
+        provideHttpClient(withInterceptors([
+        authInterceptor
+      ])
+    ),
     provideNativeDateAdapter(),
-
     { provide: LOCALE_ID, useValue: 'fr' },
-
-    provideHttpClient(),
-    // j'injecte in-memory-data-service.ts car @Injectable dans "Root"
+     provideHttpClient(),
+    /*   j'injecte in-memory-data-service.ts car @Injectable dans "Root"
     importProvidersFrom([
       HttpClientInMemoryWebApiModule.forRoot(
         InMemoryDataService, {delay:200}
       )
-    ])
+    ])*/
   ],
   bootstrap: [AppComponent]
 })

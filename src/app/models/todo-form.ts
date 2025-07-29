@@ -7,4 +7,7 @@ export interface TodoForm {
     priority: FormControl< number| null>;
     dueDate: FormControl<Date | null>;
     description: FormControl<string | null>;
+    memberIds : FormControl <(number | null)[]>;
+    projectId : FormControl< string | null >;
+    userConnected: FormControl< number | null >;
 }

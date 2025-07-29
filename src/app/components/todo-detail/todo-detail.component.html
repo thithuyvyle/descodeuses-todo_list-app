@@ -7,6 +7,17 @@
     </mat-card-header>
     <mat-card-content *ngIf="formGroup">
         <form [formGroup]="formGroup" class="m-6" (ngSubmit)="onSubmitTodo()">
+             <div>
+                <mat-form-field class="w-full">
+                    <mat-label>User connected</mat-label>
+                    <!--  <input matInput [value]="item.username" readonly > -->
+                    <mat-select formControlName="userConnectedId">
+                        @for (item of userConnected; track item.id) { 
+                            <mat-option [value]="item.id">{{item.username}}</mat-option>
+                    } </mat-select>  
+                </mat-form-field>
+            </div>
+
             <div>
                 <mat-form-field class="w-full">
                     <mat-label> Title </mat-label>
@@ -38,8 +49,50 @@
 
             <div>
                 <mat-form-field class="w-full">
-                    <mat-label>Description</mat-label> <!--.cdkTextareaAutosize: s'étend avec longueur texte ( enlève le scroll sauf si dkAutosizeMinRows="" ou ...maxRows="")-->
+                    <mat-label>Description</mat-label>
+                    <!--.cdkTextareaAutosize: s'étend avec longueur texte ( enlève le scroll sauf si dkAutosizeMinRows="" ou ...maxRows="")-->
                     <textarea matInput cdkTextareaAutosize formControlName="description"></textarea>
+                </mat-form-field>
+            </div>
+
+            <div>
+                <mat-form-field class="w-full">
+                    <mat-label> Member(s) </mat-label>
+                    <mat-chip-grid #chipGrid aria-label="Contact selection">
+                        @for (contact of selectedContacts; track $index) {
+                        <mat-chip-row (removed)="remove(contact.id)">
+                            {{contact.name}}
+                            <button matChipRemove [attr.aria-label]="'remove '+ contact.name">
+                                <mat-icon>cancel</mat-icon>
+                            </button>
+                        </mat-chip-row>
+                        }
+                    </mat-chip-grid>
+                    <input 
+                        name="currentContact"
+                        placeholder="New Contact..."
+                        #contactInput
+                        [formControl]="currentContact"  
+                        [matChipInputFor]="chipGrid" 
+                        [matAutocomplete]="auto" 
+                        (input)="onCurrentContactChange(contactInput.value)"/>
+                    <mat-autocomplete #auto="matAutocomplete"
+                        (optionSelected)="selected($event)">
+                        @for (contact of filteredContacts; track contact) {
+                        <mat-option [value]="contact.id">{{contact.name}}</mat-option>
+                        }
+                    </mat-autocomplete>
+                </mat-form-field>
+            </div>
+
+            <div>
+                <mat-form-field class="w-full">
+                    <mat-label>Project</mat-label>
+                    <mat-select formControlName="projectId">
+                        @for (item of project; track item.id) { 
+                            <mat-option [value]="item.id">{{item.title}}</mat-option>
+                    } 
+                    </mat-select>
                 </mat-form-field>
             </div>
 

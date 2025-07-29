@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Todo } from '../models/todo.model';
+import { Observable } from 'rxjs';
 
 //le service fait lien entre front et back: fait les opérations CRUD: Create Read Update Delete
 @Injectable({
@@ -8,7 +9,10 @@ import { Todo } from '../models/todo.model';
 })
 
 export class TodoService {
-  private apiURL = 'api/todos';
+  private apiURL = 'http://localhost:8080/api/action'; 
+  private apiURL2 ='http://localhost:8080/api/contact';
+  private apiURL3 ='http://localhost:8080/api/project';
+
 
   constructor(private http: HttpClient) { // HttpClient pour communiquer avec le API/Backend
   }  
@@ -34,4 +38,19 @@ export class TodoService {
   deleteTodo(id:number){
     return this.http.delete(this.apiURL+'/'+ id)
   } 
+
+  //get ALL contacts
+  getAllContacts(){
+    return this.http.get<any>(this.apiURL2);
+  }
+
+  //get projects
+  getAllProjects(){
+    return this.http.get<any>(this.apiURL3);
+  }
+
+  // filtrer par user connected
+  getTodosByUser(userId: number): Observable<Todo[]> {
+  return this.http.get<Todo[]>(`${this.apiURL}/user`, { params: { userId } });
+}
 }

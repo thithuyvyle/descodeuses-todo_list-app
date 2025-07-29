@@ -1,6 +1,7 @@
-export interface User { // toujours majuscule
-    id: number | null;
-    lastName: string | null ;
-    firstName: string | null ;
-    genre: string | null ;
+export interface User { 
+    id: number;
+    username: number | null;
+    lastName:string | null;
+    firstName: string | null;
+    genre: string | null;
 }
