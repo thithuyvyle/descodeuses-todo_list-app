@@ -15,9 +15,7 @@ export class LoginComponent implements OnInit {  // export: utilisable en dehors
   // constructor is a function that is used to initialize an Angular application. 
   // The constructor is run when the application is first created, and it is responsible for setting up the Angular environment. 
   constructor(private formBuilder: FormBuilder, private router: Router, public authService: AuthService) {
-    // private : accès à la variable ds la classe ms pas en dehors
     // le service authService est injecté pour pouvoir l'utiliser
-
   }
   username: string = '';
   userId: string = '';
@@ -33,7 +31,7 @@ export class LoginComponent implements OnInit {  // export: utilisable en dehors
     }
 
     this.loginForm = this.formBuilder.group({
-      username: ["", [Validators.required, Validators.email]], //1er paramètre "": valeur initiale du champ, 2ème (liste): validators
+      username: ["", [Validators.required, Validators.email]], 
       password: ["", [Validators.required]]
     });
   }
