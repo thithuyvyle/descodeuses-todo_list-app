@@ -15,11 +15,11 @@ const routes: Routes = [
   {path:'login', component: LoginComponent},
   {path:'profil', component: ProfilComponent},
   {path:'sign-up', component:SignUpComponent},
-  {path:'', component: TodoListComponent}, // path vide pour signifier page par défaut
+  {path:'', component: TodoListComponent, canActivate: [authGuard]}, 
   {path:'user', component: UserListComponent},
   {path:'todo-detail/:id', component: TodoDetailComponent},
   {path:'todo-table', component: TodoTableComponent },
-  {path:'dashboard', component: DashboardComponent, canActivate: [authGuard] } //  cacher la page si pas loggué
+  {path:'dashboard', component: DashboardComponent }
 
 ];
 
