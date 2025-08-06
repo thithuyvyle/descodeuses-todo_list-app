@@ -9,7 +9,6 @@ import { environment } from '../../environments/environment';
 })
 export class UserService {
 
-// get liste de tous les utilisateurs
   private apiURL =  environment.apiUrl +'/api/users';
 
   constructor(private http: HttpClient ) { }

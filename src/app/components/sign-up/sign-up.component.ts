@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatButton } from '@angular/material/button';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 
@@ -15,7 +14,7 @@ export class SignUpComponent implements OnInit {
   signupForm!: FormGroup;
   constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
   }
-  // ajouter list dans select ici (tableau valeurs)
+
   listGenre = [
     { text: 'Female', value: 'F' },
     { text: 'Male', value: 'M' }
@@ -26,7 +25,7 @@ export class SignUpComponent implements OnInit {
       lastname: [""],
       firstname: [""],
       email: ["", [Validators.required, Validators.email]],
-      password: ["", [Validators.required]], // Validators.minLength(8)
+      password: ["", [Validators.required]], 
       genre: [""],
     })
   }
@@ -39,7 +38,7 @@ export class SignUpComponent implements OnInit {
       lastname:this.signupForm.value.lastname,
       firstname: this.signupForm.value.firstname,
       genre: this.signupForm.value.genre,
-      role: 'ROLE_USER' // ou 'USER' selon ce qu’attend Spring
+      role: 'ROLE_USER' 
     };
 
     this.authService.registerUser(userData).subscribe({

@@ -13,13 +13,13 @@ import { authGuard } from './auth/auth.guard';
 
 const routes: Routes = [
   {path:'login', component: LoginComponent},
-  {path:'profil', component: ProfilComponent},
+  {path:'profil', component: ProfilComponent, canActivate: [authGuard]},
   {path:'sign-up', component:SignUpComponent},
   {path:'', component: TodoListComponent, canActivate: [authGuard]}, 
   {path:'user', component: UserListComponent},
-  {path:'todo-detail/:id', component: TodoDetailComponent},
-  {path:'todo-table', component: TodoTableComponent },
-  {path:'dashboard', component: DashboardComponent }
+  {path:'todo-detail/:id', component: TodoDetailComponent, canActivate: [authGuard]},
+  {path:'todo-table', component: TodoTableComponent , canActivate: [authGuard]},
+  {path:'dashboard', component: DashboardComponent, canActivate: [authGuard] }
 
 ];
 

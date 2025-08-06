@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, tap } from 'rxjs';
-import { User } from '../models/user.model';
 import { environment } from '../../environments/environment';
 
 
@@ -9,14 +8,11 @@ import { environment } from '../../environments/environment';
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = environment.apiUrl +'/auth/login';
-  private apiUrl2 = environment.apiUrl +'auth/signup';
+  private apiUrl = environment.apiUrl + '/auth/login';
+  private apiUrl2 = environment.apiUrl + '/auth/signup';
 
   constructor(private http: HttpClient) { }
 
-  /*login(payload : any): Observable<any> {
-    return this.http.post(`${this.apiUrl}`, payload);
-  }*/
   login(credentials: any): Observable<any> {
     return this.http.post(this.apiUrl, credentials).pipe(
       tap((response: any) => {
@@ -30,5 +26,9 @@ export class AuthService {
     return this.http.post(this.apiUrl2, userData, { responseType: 'text' });
   }
 
- 
+  logout(): void {
+    localStorage.removeItem('token');
+
+  }
+
 }

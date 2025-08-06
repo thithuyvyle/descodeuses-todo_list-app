@@ -18,7 +18,7 @@ export class TodoListComponent implements OnInit {
 
   constructor(private fb: FormBuilder, private todoService: TodoService, private snackBar: MatSnackBar) {
     this.formGroup = this.fb.group({
-      title: ["", [Validators.required]]  // input obligatoire et relié au todo.title 
+      title: ["", [Validators.required]]  
     });
   }
 
@@ -49,7 +49,7 @@ export class TodoListComponent implements OnInit {
       };
       
       this.todoService.addTodo(todo).subscribe(data => {
-        this.fetchTodo(); //actualise liste après ajout
+        this.fetchTodo(); 
       });
     }
   }
@@ -60,7 +60,7 @@ export class TodoListComponent implements OnInit {
 
     this.todoService.deleteTodo(id).subscribe(() => {
       this.fetchTodo();
-      this.snackBar.open('Deleted !', "", { duration: 2000 }); // open(): méthode de Matsnackbar pour afficher msg
+      this.snackBar.open('Deleted !', "", { duration: 2000 }); 
     });
   }
   // item updated when checked

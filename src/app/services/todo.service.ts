@@ -7,54 +7,54 @@ import { Contact } from '../models/contact.model';
 import { Project } from '../models/project.model';
 
 
-//le service fait lien entre front et back: fait les opérations CRUD: Create Read Update Delete
 @Injectable({
   providedIn: 'root'
 })
 
 export class TodoService {
-  private apiURL = environment.apiUrl +'/api/action'; 
-  private apiURL2 = environment.apiUrl +'/api/contact';
-  private apiURL3 = environment.apiUrl +'/api/project';
+  private apiURL = environment.apiUrl + '/api/action';
+  private apiURL2 = environment.apiUrl + '/api/contact';
+  private apiURL3 = environment.apiUrl + '/api/project';
 
 
-  constructor(private http: HttpClient) { // HttpClient pour communiquer avec le API/Backend
-  }  
-//Create item
-  addTodo(item: Todo){
-    // <Todo>: type de retour de l'appel HTTP
-    return this.http.post<Todo>(this.apiURL, item); // au serveur : objet de type Todo
+  constructor(private http: HttpClient) { 
+  }
+  //Create item
+  addTodo(item: Todo) {
+    return this.http.post<Todo>(this.apiURL, item); 
   }
 
- //Read : fetch list 
-  getTodos(){
-    return this.http.get<Todo[]>(this.apiURL); // GET: pas de 2è paramètre car pas de body, utilisée uniquement pour lire des données.
+  //Read : fetch list 
+  getTodos() {
+    return this.http.get<Todo[]>(this.apiURL); 
   }
-// Read: fetch 1 item de Todo
-  getTodo(id:number){
-    return this.http.get<Todo>(this.apiURL + '/' + id); // en précisant id : me donne que info de l'id
+  // Read: fetch 1 item de Todo
+  getTodo(id: number) {
+    return this.http.get<Todo>(this.apiURL + '/' + id); 
   }
-// Update liste
-  updateTodo(item:Todo) {
-     return this.http.put<Todo>(this.apiURL +'/'+ item.id, item); 
+  // Update liste
+  updateTodo(item: Todo) {
+    return this.http.put<Todo>(this.apiURL + '/' + item.id, item);
   }
- // Delete 1 item
-  deleteTodo(id:number){
-    return this.http.delete(this.apiURL+'/'+ id)
-  } 
+  // Delete 1 item
+  deleteTodo(id: number) {
+    return this.http.delete(this.apiURL + '/' + id)
+  }
 
   //get ALL contacts
-  getAllContacts(){
+  getAllContacts() {
     return this.http.get<Contact[]>(this.apiURL2);
   }
 
   //get projects
-  getAllProjects(){
+  getAllProjects() {
     return this.http.get<Project[]>(this.apiURL3);
   }
 
   // filtrer par user connected
   getTodosByUser(userId: number): Observable<Todo[]> {
-  return this.http.get<Todo[]>(`${this.apiURL}/user`, { params: { userId } });
-}
+    return this.http.get<Todo[]>(`${this.apiURL}/user`, { params: { userId } });
+  }
+
+
 }

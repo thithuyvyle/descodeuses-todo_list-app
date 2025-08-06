@@ -5,7 +5,7 @@
                 <input formControlName="title" matInput placeholder="Add To-do here">
             </mat-form-field>
 
-            <button mat-fab type="submit"> <!-- fab: floating action button-->
+            <button mat-fab type="submit"> 
                 <mat-icon>add</mat-icon>
             </button>
         </div>
@@ -13,7 +13,7 @@
 
     <div id="todo-list">
         <mat-list>
-            @for(todo of todos; track todo.id){ <!-- @for: directive -->
+            @for(todo of todos; track todo.id){
             <mat-list-item>
                 <div class="flex items-center"> <!--centrer icone et texte verticalement-->
                     <!--$event : évènement qui déclenche le changement , todo.id est dynamique et ajouté au path-->
@@ -26,6 +26,7 @@
             </mat-list-item>
             }
         </mat-list>
-
     </div>
 </mat-card>
+
+ 

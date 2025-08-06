@@ -48,7 +48,6 @@ export class TodoDetailComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    // je récup l'id de mon URL et convertis en nombre pour faire appel au fetch by ID du service CRUD
     const id = Number(this.activatedRoute.snapshot.paramMap.get('id'));
 
     this.todoService.getTodo(id).subscribe(data => {
@@ -69,6 +68,7 @@ export class TodoDetailComponent implements OnInit {
           projectId: [this.todo.projectId],
           userConnectedId: [this.todo.userConnectedId],
         });
+
         //members :
         this.selectedContacts = this.allContactsFirstNames.filter(c => this.todo.memberIds.includes(c.id))
       });
@@ -93,10 +93,10 @@ export class TodoDetailComponent implements OnInit {
     }
 
     if (this.formGroup.valid) {
-      console.log(this.formGroup.value); // vérif si changements bien pris en compte
+      //console.log(this.formGroup.value); 
       this.todoService.updateTodo(this.formGroup.value).subscribe(data => {
         this.snackBar.open('Saved !', "", { duration: 2000 });
-        this.router.navigate(['/']); // puis redirige vers page accueil
+        this.router.navigateByUrl('');
       })
     }
   }
@@ -107,7 +107,7 @@ export class TodoDetailComponent implements OnInit {
     const local = new Date(dateObject.getFullYear(), dateObject.getMonth(), dateObject.getDate());
     return new Date(local.getTime() - local.getTimezoneOffset() * 60000).toISOString();
   }
-  /* Correction CHATGPT : toLocalDateString(date: Date): string {
+  /* Correction : toLocalDateString(date: Date): string {
        const year = date.getFullYear();
        const month = String(date.getMonth() + 1).padStart(2, '0');
        const day = String(date.getDate()).padStart(2, '0');
