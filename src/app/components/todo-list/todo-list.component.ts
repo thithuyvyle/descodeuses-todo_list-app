@@ -4,6 +4,8 @@ import { TodoService } from '../../services/todo.service';
 import { Todo } from '../../models/todo.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatCheckboxChange } from '@angular/material/checkbox';
+import { User } from '../../models/user.model';
+import { AuthService } from '../../services/auth.service';
 
 
 @Component({
@@ -15,26 +17,36 @@ import { MatCheckboxChange } from '@angular/material/checkbox';
 export class TodoListComponent implements OnInit {
   formGroup: FormGroup;
   todos: Todo[] = [];
+  user: User | null = null;
 
-  constructor(private fb: FormBuilder, private todoService: TodoService, private snackBar: MatSnackBar) {
+  constructor(private fb: FormBuilder, private todoService: TodoService, private snackBar: MatSnackBar, private authService: AuthService) {
     this.formGroup = this.fb.group({
-      title: ["", [Validators.required]]  
+      title: ["", [Validators.required]]
     });
   }
 
   ngOnInit(): void {
+    this.user = this.authService.getCurrentUser();
     this.fetchTodo();
   }
+
   // liste de tous les items
   fetchTodo() {
     this.todoService.getTodos().subscribe((data) => {
-      this.todos = data;
-    }) 
+      if (!this.user) return;
+      // Admin → toutes les tâches
+      if (this.user.role === 'ROLE_ADMIN') {
+        this.todos = data;
+      } else {
+        // Utilisateur → ses propres tâches uniquement
+        this.todos = data.filter(todo => todo.userConnectedId === this.user!.id);
+      }
+    })
   }
 
   //ajouter un item
   onAddTodo() {
-    if (this.formGroup.valid) {
+    if (this.formGroup.valid && this.user) {
       const formValue = this.formGroup.value;
       const todo: Todo = {
         id: null,
@@ -44,12 +56,12 @@ export class TodoListComponent implements OnInit {
         dueDate: null,
         description: null,
         memberIds: [],
-        projectId:null,
-        userConnectedId: null,
+        projectId: null,
+        userConnectedId: this.user.id,
       };
-      
+
       this.todoService.addTodo(todo).subscribe(data => {
-        this.fetchTodo(); 
+        this.fetchTodo();
       });
     }
   }
@@ -60,17 +72,16 @@ export class TodoListComponent implements OnInit {
 
     this.todoService.deleteTodo(id).subscribe(() => {
       this.fetchTodo();
-      this.snackBar.open('Deleted !', "", { duration: 2000 }); 
+      this.snackBar.open('Deleted !', "", { duration: 2000 });
     });
   }
   // item updated when checked
   onUpdateTodo(event: MatCheckboxChange, todo: Todo) {
     todo.completed = event.checked;
-    console.log(todo);
-    this.todoService.updateTodo(todo).subscribe((data) => { 
+    this.todoService.updateTodo(todo).subscribe((data) => { // maj ds l'API
       this.snackBar.open('Updated!', "", { duration: 2000 });
       this.fetchTodo();
     })
   }
-  
+
 }
