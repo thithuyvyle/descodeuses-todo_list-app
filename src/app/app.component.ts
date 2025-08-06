@@ -16,7 +16,7 @@ export class AppComponent {
 
   logout(): void {
     this.authService.logout();
-    this.snackBar.open('Deconnected !', "", { duration: 2000 });
+    this.snackBar.open('Disconnected !', "", { duration: 2000 });
     this.router.navigate(['/login']);
   }
 }

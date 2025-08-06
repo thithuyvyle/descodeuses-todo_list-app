@@ -67,7 +67,7 @@ export class TodoListComponent implements OnInit {
   onUpdateTodo(event: MatCheckboxChange, todo: Todo) {
     todo.completed = event.checked;
     console.log(todo);
-    this.todoService.updateTodo(todo).subscribe((data) => { // maj ds l'API
+    this.todoService.updateTodo(todo).subscribe((data) => { 
       this.snackBar.open('Updated!', "", { duration: 2000 });
       this.fetchTodo();
     })
