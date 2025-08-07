@@ -6,7 +6,7 @@ import { Todo } from '../../models/todo.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { FormControl } from '@angular/forms';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
-import { Contact } from '../../models/contact.model';
+import { Member } from '../../models/member.model';
 import { Project } from '../../models/project.model';
 import { UserService } from '../../services/user.service';
 import { User } from '../../models/user.model';
@@ -29,11 +29,11 @@ export class TodoDetailComponent implements OnInit {
     { priority: 3, value: 3 },
   ]
 
-  // contacts
-  currentContact = new FormControl('');
-  allContactsFirstNames: Contact[] = [];
-  selectedContacts: Contact[] = [];
-  filteredContacts: Contact[] = [];
+  // membres
+  currentMember = new FormControl('');
+  allMembersFirstNames: Member[] = [];
+  selectedMembers: Member[] = [];
+  filteredMembers: Member[] = [];
 
   project: Project[] = [];
   userConnected: User[] = [];
@@ -70,12 +70,12 @@ export class TodoDetailComponent implements OnInit {
         });
 
         //members :
-        this.selectedContacts = this.allContactsFirstNames.filter(c => this.todo.memberIds.includes(c.id))
+        this.selectedMembers = this.allMembersFirstNames.filter(c => this.todo.memberIds.includes(c.id))
       });
 
-      this.todoService.getAllContacts().subscribe((contacts) => {
-        this.allContactsFirstNames = contacts;
-        this.filteredContacts = [...this.allContactsFirstNames];
+      this.todoService.getAllMembers().subscribe((members) => {
+        this.allMembersFirstNames = members;
+        this.filteredMembers = [...this.allMembersFirstNames];
       });
 
       //project :
@@ -89,7 +89,7 @@ export class TodoDetailComponent implements OnInit {
   onSubmitTodo() {
     if (this.formGroup.value.dueDate){
     this.formGroup.value.dueDate = this.toLocalIsoString(this.formGroup.value.dueDate);
-    this.formGroup.get('memberIds')?.setValue(this.selectedContacts.map(c => c.id));
+    this.formGroup.get('memberIds')?.setValue(this.selectedMembers.map(c => c.id));
     }
 
     if (this.formGroup.valid) {
@@ -115,23 +115,23 @@ export class TodoDetailComponent implements OnInit {
  }*/
 
   // enlever membres
-  remove(idContact: number | null): void {
-    this.selectedContacts = this.selectedContacts.filter(c => c.id !== idContact);
+  remove(idMember: number | null): void {
+    this.selectedMembers = this.selectedMembers.filter(c => c.id !== idMember);
     this.formGroup.markAsDirty();
   }
   // fonction filtrage par lettre
-  onCurrentContactChange(value: string) {
+  onCurrentMemberChange(value: string) {
     const filterValue = value.toLowerCase();
-    this.filteredContacts = this.allContactsFirstNames.filter(contact =>
-      contact.name?.toLowerCase().includes(filterValue)
+    this.filteredMembers = this.allMembersFirstNames.filter(member =>
+      member.name?.toLowerCase().includes(filterValue)
     );
   }
   // sélection des membres
   selected(event: MatAutocompleteSelectedEvent): void {
-    let selectedC = this.allContactsFirstNames.find(c => c.id == event.option.value);
+    let selectedC = this.allMembersFirstNames.find(c => c.id == event.option.value);
     if (selectedC != null) {
-      this.selectedContacts = [...this.selectedContacts, selectedC];
-      this.currentContact.setValue('');
+      this.selectedMembers = [...this.selectedMembers, selectedC];
+      this.currentMember.setValue('');
       event.option.deselect();
       this.formGroup.markAsDirty();
     }

@@ -54,28 +54,28 @@
             <div>
                 <mat-form-field class="w-full">
                     <mat-label> Member(s) </mat-label>
-                    <mat-chip-grid #chipGrid aria-label="Contact selection">
-                        @for (contact of selectedContacts; track $index) {
-                        <mat-chip-row (removed)="remove(contact.id)">
-                            {{contact.name}}
-                            <button matChipRemove [attr.aria-label]="'remove '+ contact.name">
+                    <mat-chip-grid #chipGrid aria-label="member selection">
+                        @for (member of selectedMembers; track $index) {
+                        <mat-chip-row (removed)="remove(member.id)">
+                            {{member.name}}
+                            <button matChipRemove [attr.aria-label]="'remove '+ member.name">
                                 <mat-icon>cancel</mat-icon>
                             </button>
                         </mat-chip-row>
                         }
                     </mat-chip-grid>
                     <input 
-                        name="currentContact"
-                        placeholder="New Contact..."
-                        #contactInput
-                        [formControl]="currentContact"  
+                        name="currentMember"
+                        placeholder="New member..."
+                        #memberInput
+                        [formControl]="currentMember"  
                         [matChipInputFor]="chipGrid" 
                         [matAutocomplete]="auto" 
-                        (input)="onCurrentContactChange(contactInput.value)"/>
+                        (input)="onCurrentMemberChange(memberInput.value)"/>
                     <mat-autocomplete #auto="matAutocomplete"
                         (optionSelected)="selected($event)">
-                        @for (contact of filteredContacts; track contact) {
-                        <mat-option [value]="contact.id">{{contact.name}}</mat-option>
+                        @for (member of filteredMembers; track member) {
+                        <mat-option [value]="member.id">{{member.name}}</mat-option>
                         }
                     </mat-autocomplete>
                 </mat-form-field>

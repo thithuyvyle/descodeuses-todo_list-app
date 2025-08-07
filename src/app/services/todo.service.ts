@@ -3,8 +3,8 @@ import { Injectable } from '@angular/core';
 import { Todo } from '../models/todo.model';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
-import { Contact } from '../models/contact.model';
 import { Project } from '../models/project.model';
+import { Member } from '../models/member.model';
 
 
 @Injectable({
@@ -42,8 +42,8 @@ export class TodoService {
   }
 
   //get ALL contacts
-  getAllContacts() {
-    return this.http.get<Contact[]>(this.apiURL2);
+  getAllMembers() {
+    return this.http.get<Member[]>(this.apiURL2);
   }
 
   //get projects

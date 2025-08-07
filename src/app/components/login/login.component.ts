@@ -3,20 +3,20 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 
-@Component({  
-  selector: 'app-login',     
-  standalone: false, 
-  templateUrl: './login.component.html', 
-  styleUrl: './login.component.css'     
+@Component({
+  selector: 'app-login',
+  standalone: false,
+  templateUrl: './login.component.html',
+  styleUrl: './login.component.css'
 })
-export class LoginComponent implements OnInit { 
-  loginForm!: FormGroup; 
+export class LoginComponent implements OnInit {
+  loginForm!: FormGroup;
   constructor(private formBuilder: FormBuilder, private router: Router, public authService: AuthService) {
-    
+
   }
   username: string = '';
   userId: string = '';
-  
+
   ngOnInit(): void {
     this.username = sessionStorage.getItem('username') || '';
 
@@ -28,7 +28,7 @@ export class LoginComponent implements OnInit {
     }
 
     this.loginForm = this.formBuilder.group({
-      username: ["", [Validators.required, Validators.email]], 
+      username: ["", [Validators.required, Validators.email]],
       password: ["", [Validators.required]]
     });
   }
@@ -36,6 +36,7 @@ export class LoginComponent implements OnInit {
   onSubmit() {
     if (this.loginForm.valid) {
       const credentials = this.loginForm.value;
+
       this.authService.login(credentials).subscribe({
         next: (res) => {
           sessionStorage.setItem('authToken', res.token);
@@ -45,11 +46,14 @@ export class LoginComponent implements OnInit {
           }));
           this.router.navigateByUrl('');
         },
-        error: (err) => console.error('Erreur de connexion', err),
+        error: (err) => {
+          console.error('Erreur de connexion', err);
+          this.loginForm.setErrors({ credentialsMismatch: true });
+        }
       });
-
     }
   }
+
 
 }
 

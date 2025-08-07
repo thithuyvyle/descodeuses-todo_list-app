@@ -18,8 +18,14 @@
                 </mat-form-field>
             </div>
 
-            <span> You don't have an account? Click here to 
-                <a routerLink="/sign-up" style="text-decoration: none; color: inherit;"><strong> register </strong></a></span>
+            <div *ngIf="loginForm.hasError('credentialsMismatch')"
+                class="text-red-500 text-sm mt-2 mb-2">
+                Username / password do not match.
+            </div>
+
+            <span> You don't have an account? Click here to
+                <a routerLink="/sign-up" style="text-decoration: none; color: inherit;"><strong> register
+                    </strong></a></span>
             <div class="flex m-4 justify-center">
                 <button mat-flat-button type="submit">Log In </button>
             </div>
