@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, tap } from 'rxjs';
+import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { User } from '../models/user.model';
 import { jwtDecode } from 'jwt-decode';
@@ -13,8 +13,12 @@ export class AuthService {
   private apiUrl = environment.apiUrl + '/auth/login';
   private apiUrl2 = environment.apiUrl + '/auth/signup';
 
+  private currentUserSubject = new BehaviorSubject<any>(null);
+  currentUser$ = this.currentUserSubject.asObservable();
+
   constructor(private http: HttpClient) { }
 
+  
   login(credentials: any): Observable<any> {
     return this.http.post(this.apiUrl, credentials).pipe(
       tap((response: any) => {
@@ -29,8 +33,10 @@ export class AuthService {
           genre: null,
           role: decoded.role,
         };
+
         localStorage.setItem('user', JSON.stringify(user));
         localStorage.setItem('token', response.token);
+        this.currentUserSubject.next(user);
       })
     );
   }
@@ -41,18 +47,26 @@ export class AuthService {
 
   logout(): void {
     localStorage.removeItem('token');
+    localStorage.removeItem('user'); 
+   this.currentUserSubject.next(null); 
   }
 
   getCurrentUser(): User | null {
     const userStr = localStorage.getItem('user');
     if (!userStr) return null;
-
     try {
       return JSON.parse(userStr);
     } catch (error) {
       console.error('Erreur de parsing du user dans localStorage:', error);
       return null;
     }
+    
   }
 
+  loadUserFromStorage() {
+    const user = localStorage.getItem('user');
+    if (user) {
+      this.currentUserSubject.next(JSON.parse(user));
+    }
+  }
 }

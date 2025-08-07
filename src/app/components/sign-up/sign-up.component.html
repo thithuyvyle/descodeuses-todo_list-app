@@ -1,50 +1,65 @@
 <div class="h-screen">
     <div class="flex items-center justify-center h-screen">
-        <form [formGroup]="signupForm" (ngSubmit)="onSubmit()" class="shadow-2xl p-10 bg bg-white rounded-4xl" >
-            <h1 class="text-center"> Sign Up</h1>
+        <form [formGroup]="signupForm" (ngSubmit)="onSubmit()" class="shadow-2xl p-10 bg bg-white rounded-4xl">
+            <h1 class="text-center"> Create your account </h1>
+            <h2>Please enter your information </h2>
+
             <div>
-                <mat-form-field>
+                <mat-form-field class=" w-full">
                     <mat-label> Last Name </mat-label>
-                    <input formControlName="lastname" matInput type="text" placeholder="Last Name">
+                    <input formControlName="lastname" matInput type="text">
                 </mat-form-field>
             </div>
             <div>
-                <mat-form-field>
+                <mat-form-field class=" w-full">
                     <mat-label> First Name </mat-label>
-                    <input formControlName="firstname" matInput type="text" placeholder="First Name">
+                    <input formControlName="firstname" matInput type="text">
                 </mat-form-field>
             </div>
             <div>
-               <!-- <mat-form-field>
-                    <mat-label> Genre </mat-label>
-                    <mat-select formControlName="genre">
-                        <mat-option value="Female">Female</mat-option>
-                        <mat-option value="Male">Male</mat-option>
-                    </mat-select>
-                </mat-form-field>-->
-                <mat-form-field>
+                <mat-form-field class=" w-full">
                     <mat-label>Genre</mat-label>
                     <mat-select formControlName="genre">
-                        <!--@for : directive conditionnelle, genre: variable , track: MAJ si genre.value change-->
-                        @for (genre of listGenre; track genre.value) { <!-- track: It refers to a function used to track list items by a unique identifier to help Angular efficiently detect and update changes.-->
-                            <mat-option [value]="genre.value">{{genre.text}}</mat-option>
+                        @for (genre of listGenre; track genre.value) {
+                        <mat-option [value]="genre.value">{{genre.text}}</mat-option>
                         }
                     </mat-select>
                 </mat-form-field>
             </div>
             <div>
-                <mat-form-field>
+                <mat-form-field class=" w-full">
                     <mat-label> Login User </mat-label>
-                    <input formControlName="email" matInput type="email" placeholder="Login email">
+                    <input formControlName="email" matInput type="email" placeholder="Enter your email"
+                     pattern="[^@]+@[^@]+\.[a-zA-Z]{2,6}">
                 </mat-form-field>
             </div>
             <div>
-                <mat-form-field>
-                    <mat-label> Password </mat-label>
-                    <input formControlName="password" matInput type="password">
-                </mat-form-field>  
+                <mat-form-field class="w-full">
+                    <mat-label>Password</mat-label>
+                    <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="password"
+                        placeholder="Min. 8 characters" > <!-- pattern="/^[a-zA-Z0-9!@#\$%\^\&*_=+-]{8,12}$/g" -->
+                    <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword"
+                        [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword">
+                        <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+                    </button>
+                </mat-form-field>
             </div>
-            <button [disabled]="signupForm.invalid" mat-flat-button type="submit" class="w-full"> Sign Up </button>
+            <div>
+                <mat-form-field class=" w-full">
+                    <mat-label> Confirm your password </mat-label>
+                    <input formControlName="passwordConfirm" matInput type="password">
+                </mat-form-field>
+            </div>
+
+            <div *ngIf="signupForm.hasError('passwordMismatch') && signupForm.get('passwordConfirm')?.touched"
+                class="text-red-500 text-sm mt-2 mb-2">
+                Passwords do not match.
+            </div>
+
+            <span>All (*) are required</span>
+
+            <button [disabled]="signupForm.invalid" mat-flat-button type="submit" class="w-full m-4"> Sign Up </button>
+            
         </form>
     </div>
 </div>

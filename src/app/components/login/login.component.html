@@ -1,28 +1,27 @@
 <div class="flex h-full bg-gray-100 items-center justify-center" id="full-cover-background">
     <div id="centered-block" class="bg-white p-6 rounded-xl shadow-md">
         <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-            <h2 class="text-center">Login</h2>
+            <h1 class="text-center">Login</h1>
+            <h3 class="text-center"> Please enter your credentials to have access</h3>
+
             <div id="email-container">
-                <mat-form-field>
+                <mat-form-field class=" w-full">
                     <mat-label>Email</mat-label>
-                    <input matInput formControlName="username" type="email" placeholder="Email" />
+                    <input matInput formControlName="username" type="email" placeholder="ex:xxxx@gmail.com" />
                 </mat-form-field>
             </div>
 
             <div id="password-container">
-                <mat-form-field>
+                <mat-form-field class=" w-full">
                     <mat-label>Password</mat-label>
-                    <input matInput formControlName="password" type="password" placeholder="Password">
+                    <input matInput formControlName="password" type="password">
                 </mat-form-field>
             </div>
 
-            <div class="flex gap-4">
-                <button mat-flat-button type="submit" class="w-full">
-                    Log In
-                </button>
-                <button mat-flat-button type="button" routerLink="/sign-up" class="w-full">
-                    Sign In
-                </button>
+            <span> You don't have an account? Click here to 
+                <a routerLink="/sign-up" style="text-decoration: none; color: inherit;"><strong> register </strong></a></span>
+            <div class="flex m-4 justify-center">
+                <button mat-flat-button type="submit">Log In </button>
             </div>
 
         </form>

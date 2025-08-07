@@ -20,7 +20,7 @@
                     <mat-checkbox [checked]="todo.completed" (change)="onUpdateTodo($event,todo)"> </mat-checkbox>
                     <span [routerLink]="['/todo-detail', todo.id]" class="flex-1 cursor-pointer">{{todo.title}}</span>
                     <button mat-icon-button (click)="onRemoveTodo(todo.id)">
-                        <mat-icon>delete</mat-icon>
+                        <mat-icon>delete_forever</mat-icon>
                     </button>
                 </div>
             </mat-list-item>
