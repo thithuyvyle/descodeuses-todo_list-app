@@ -10,6 +10,7 @@ import { Member } from '../../models/member.model';
 import { Project } from '../../models/project.model';
 import { UserService } from '../../services/user.service';
 import { User } from '../../models/user.model';
+import { AuthService } from '../../services/auth.service';
 
 
 @Component({
@@ -34,7 +35,6 @@ export class TodoDetailComponent implements OnInit {
   allMembersFirstNames: Member[] = [];
   selectedMembers: Member[] = [];
   filteredMembers: Member[] = [];
-
   project: Project[] = [];
   userConnected: User[] = [];
   
@@ -45,6 +45,7 @@ export class TodoDetailComponent implements OnInit {
     private fb: FormBuilder,
     private snackBar: MatSnackBar,
     private router: Router,
+    private authService : AuthService,
   ) { }
 
   ngOnInit(): void {
@@ -66,7 +67,8 @@ export class TodoDetailComponent implements OnInit {
           description: [this.todo.description],
           memberIds: [this.todo.memberIds || []],
           projectId: [this.todo.projectId],
-          userConnectedId: [this.todo.userConnectedId],
+          userConnected: [this.userConnected.find(u => u.id === this.todo.userConnectedId)?.username || ''],
+         
         });
 
         //members :

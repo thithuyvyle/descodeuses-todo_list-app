@@ -31,8 +31,14 @@
             <td mat-cell *matCellDef=" let todo "> {{todo.completed ? 'Yes' : 'No'}}  </td><!-- si completed affiche Yes-->
         </ng-container>
 
-        <tr mat-header-row *matHeaderRowDef="['id', 'title', 'description', 'priority', 'dueDate','completed']"></tr>
-        <tr mat-row *matRowDef="let row; columns: ['id', 'title', 'description','priority', 'dueDate','completed']"></tr>
+        <ng-container matColumnDef="userConnectedId">
+            <th mat-header-cell *matHeaderCellDef> Id User </th>
+            <td mat-cell *matCellDef=" let todo "> {{ getUsernameById(todo.userConnectedId) }} </td>
+        </ng-container>
+
+
+        <tr mat-header-row *matHeaderRowDef="['id', 'title','userConnectedId', 'description', 'priority', 'dueDate','completed']"></tr>
+        <tr mat-row *matRowDef="let row; columns: ['id', 'title', 'userConnectedId','description','priority', 'dueDate','completed']"></tr>
     <!-- <tr mat-header-row>: affiche titre colonnes
           *matHeaderRowDef donne l'ordre des colonnes
          <tr mat-row>: affiche lignes de données

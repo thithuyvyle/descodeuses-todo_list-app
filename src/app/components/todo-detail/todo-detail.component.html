@@ -6,14 +6,18 @@
     </mat-card-header>
     <mat-card-content *ngIf="formGroup">
         <form [formGroup]="formGroup" class="m-6" (ngSubmit)="onSubmitTodo()">
-             <div>
+            <div>
                 <mat-form-field class="w-full">
+                    <mat-label>User connected</mat-label>
+                    <input matInput type="text" formControlName="userConnected" readonly />
+                </mat-form-field>
+                <!-- <mat-form-field class="w-full">
                     <mat-label>User connected</mat-label>
                     <mat-select formControlName="userConnectedId">
                         @for (item of userConnected; track item.id) { 
                             <mat-option [value]="item.id">{{item.username}}</mat-option>
                     } </mat-select>   
-                </mat-form-field>
+                </mat-form-field> -->
             </div>
 
             <div>
@@ -64,16 +68,10 @@
                         </mat-chip-row>
                         }
                     </mat-chip-grid>
-                    <input 
-                        name="currentMember"
-                        placeholder="New member..."
-                        #memberInput
-                        [formControl]="currentMember"  
-                        [matChipInputFor]="chipGrid" 
-                        [matAutocomplete]="auto" 
-                        (input)="onCurrentMemberChange(memberInput.value)"/>
-                    <mat-autocomplete #auto="matAutocomplete"
-                        (optionSelected)="selected($event)">
+                    <input name="currentMember" placeholder="New member..." #memberInput [formControl]="currentMember"
+                        [matChipInputFor]="chipGrid" [matAutocomplete]="auto"
+                        (input)="onCurrentMemberChange(memberInput.value)" />
+                    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
                         @for (member of filteredMembers; track member) {
                         <mat-option [value]="member.id">{{member.name}}</mat-option>
                         }
@@ -85,9 +83,9 @@
                 <mat-form-field class="w-full">
                     <mat-label>Project</mat-label>
                     <mat-select formControlName="projectId">
-                        @for (item of project; track item.id) { 
-                            <mat-option [value]="item.id">{{item.title}}</mat-option>
-                    } 
+                        @for (item of project; track item.id) {
+                        <mat-option [value]="item.id">{{item.title}}</mat-option>
+                        }
                     </mat-select>
                 </mat-form-field>
             </div>

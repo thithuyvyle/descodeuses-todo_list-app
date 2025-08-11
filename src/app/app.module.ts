@@ -33,6 +33,10 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import {MatChipsModule} from '@angular/material/chips';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { authInterceptor } from './auth/auth.interceptor';
+import {MatDialogModule} from '@angular/material/dialog';
+import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
+import { LogoutConfirmDialogComponent } from './components/logout-confirm-dialog/logout-confirm-dialog.component';
+
 
 
 @NgModule({
@@ -46,6 +50,8 @@ import { authInterceptor } from './auth/auth.interceptor';
     TodoDetailComponent,
     TodoTableComponent,
     DashboardComponent,
+    ConfirmDialogComponent,
+    LogoutConfirmDialogComponent,
 
   ],
   imports: [
@@ -69,6 +75,7 @@ import { authInterceptor } from './auth/auth.interceptor';
     MatTableModule,
     MatAutocompleteModule,
     MatChipsModule,
+    MatDialogModule,
     
     
   ],

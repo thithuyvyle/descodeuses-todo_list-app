@@ -9,12 +9,13 @@ import { TodoDetailComponent } from './components/todo-detail/todo-detail.compon
 import { TodoTableComponent } from './components/todo-table/todo-table.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { authGuard } from './auth/auth.guard';
+import { LogoutGuard } from './auth/logoutGuard';
 
 
 const routes: Routes = [
-  {path:'login', component: LoginComponent},
+  {path:'login', component: LoginComponent, canActivate:[LogoutGuard]},
   {path:'profil', component: ProfilComponent, canActivate: [authGuard]},
-  {path:'sign-up', component:SignUpComponent},
+  {path:'sign-up', component:SignUpComponent, canActivate:[LogoutGuard]},
   {path:'', component: TodoListComponent, canActivate: [authGuard]}, 
   {path:'user', component: UserListComponent},
   {path:'todo-detail/:id', component: TodoDetailComponent, canActivate: [authGuard]},

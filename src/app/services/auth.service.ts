@@ -17,7 +17,7 @@ export class AuthService {
   currentUser$ = this.currentUserSubject.asObservable();
 
   constructor(private http: HttpClient) { }
-
+  isAdmin = false;
   
   login(credentials: any): Observable<any> {
     return this.http.post(this.apiUrl, credentials).pipe(
