@@ -18,7 +18,7 @@
                 <div class="flex items-center">
                     <mat-checkbox [checked]="todo.completed" (change)="onUpdateTodo($event,todo)"> </mat-checkbox>
                     <span [routerLink]="['/todo-detail', todo.id]" class="flex-1 cursor-pointer">{{todo.title}}</span>
-                    <button mat-icon-button (click)="onRemoveTodo(todo.id)">
+                    <button mat-icon-button (click)="onRemoveTodo(todo)">
                         <mat-icon>delete_forever</mat-icon>
                     </button>
                 </div>

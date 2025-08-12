@@ -38,6 +38,8 @@ import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dial
 import { LogoutConfirmDialogComponent } from './components/logout-confirm-dialog/logout-confirm-dialog.component';
 import { ConfirmDeleteDialogComponent } from './components/confirm-delete-dialog/confirm-delete-dialog.component';
 import { UserDetailComponent } from './components/user-detail/user-detail.component';
+import { DeleteTaskDialogComponent } from './components/delete-task-dialog/delete-task-dialog.component';
+import { DialogRedirectComponent } from './components/dialog-redirect/dialog-redirect.component';
 
 
 
@@ -56,6 +58,8 @@ import { UserDetailComponent } from './components/user-detail/user-detail.compon
     LogoutConfirmDialogComponent,
     ConfirmDeleteDialogComponent,
     UserDetailComponent,
+    DeleteTaskDialogComponent,
+    DialogRedirectComponent,
 
   ],
   imports: [

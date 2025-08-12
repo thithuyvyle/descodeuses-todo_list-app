@@ -4,6 +4,8 @@ import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { emailTakenValidator } from '../../validators';
+import { DialogRedirectComponent } from '../dialog-redirect/dialog-redirect.component';
+import { MatDialog } from '@angular/material/dialog';
 
 export function passwordMatchValidator(control: AbstractControl): ValidationErrors | null {
   const password = control.get('password')?.value;
@@ -20,7 +22,7 @@ export function passwordMatchValidator(control: AbstractControl): ValidationErro
 
 export class SignUpComponent implements OnInit {
   signupForm!: FormGroup;
-  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router, private snackBar: MatSnackBar) {
+  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router, private dialog: MatDialog) {
   }
 
   hidePassword = true;
@@ -47,28 +49,33 @@ export class SignUpComponent implements OnInit {
   }
 
   onSubmit() {
-    if (this.signupForm.valid) {
-      const userData = {
-        username: this.signupForm.value.email,
-        password: this.signupForm.value.password,
-        lastName: this.signupForm.value.lastName,
-        firstName: this.signupForm.value.firstName,
-        genre: this.signupForm.value.genre,
-        role: 'ROLE_USER'
-      };
+    const dialogRef = this.dialog.open(DialogRedirectComponent);
+    dialogRef.afterClosed().subscribe(confirmed => {
+      if (confirmed) {
+        if (this.signupForm.valid) {
+          const userData = {
+            username: this.signupForm.value.email,
+            password: this.signupForm.value.password,
+            lastName: this.signupForm.value.lastName,
+            firstName: this.signupForm.value.firstName,
+            genre: this.signupForm.value.genre,
+            role: 'ROLE_USER'
+          };
 
-      this.authService.registerUser(userData).subscribe({
-        next: () => {
-          this.router.navigateByUrl('');
-        },
-        error: (error) => {
-          console.error('Erreur lors de l\'enregistrement', error);
-          this.errorMessage = error.error;  
+          this.authService.registerUser(userData).subscribe({
+            next: () => {
+              this.router.navigateByUrl('');
+            },
+            error: (error) => {
+              console.error('Erreur lors de l\'enregistrement', error);
+              this.errorMessage = error.error;
+            }
+          });
+        } else {
+          this.signupForm.markAllAsTouched();
         }
-      });
-    } else {
-      this.signupForm.markAllAsTouched();
-    }
+      }
+    })
   }
 
 

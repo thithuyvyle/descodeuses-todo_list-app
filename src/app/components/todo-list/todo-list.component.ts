@@ -6,6 +6,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { User } from '../../models/user.model';
 import { AuthService } from '../../services/auth.service';
+import { MatDialog } from '@angular/material/dialog';
+import { DeleteTaskDialogComponent } from '../delete-task-dialog/delete-task-dialog.component';
 
 
 @Component({
@@ -19,7 +21,7 @@ export class TodoListComponent implements OnInit {
   todos: Todo[] = [];
   user: User | null = null;
 
-  constructor(private fb: FormBuilder, private todoService: TodoService, private snackBar: MatSnackBar, private authService: AuthService) {
+  constructor(private fb: FormBuilder, private todoService: TodoService, private snackBar: MatSnackBar, private authService: AuthService, private dialog: MatDialog) {
     this.formGroup = this.fb.group({
       title: ["", [Validators.required]]
     });
@@ -67,18 +69,25 @@ export class TodoListComponent implements OnInit {
   }
 
   // function when click on trash
-  onRemoveTodo(id: number | null) { // peut etre null car pas créé par nous ms généré par serveur plus tard
-    if (id == null) return;
-
-    this.todoService.deleteTodo(id).subscribe(() => {
-      this.fetchTodo();
-      this.snackBar.open('Deleted !', "", { duration: 2000 });
+  onRemoveTodo(todo: Todo) {
+    const dialogRef = this.dialog.open(DeleteTaskDialogComponent, {
+      data: { todo: todo.title }
     });
-  }
+    dialogRef.afterClosed().subscribe(confirmed => {
+      if (confirmed) {
+        if (!todo.id) return;
+        this.todoService.deleteTodo(todo.id).subscribe(() => {
+          this.fetchTodo();
+          this.snackBar.open('Deleted !', "", { duration: 2000 });
+        });
+      }
+    })
+  };
+
   // item updated when checked
   onUpdateTodo(event: MatCheckboxChange, todo: Todo) {
     todo.completed = event.checked;
-    this.todoService.updateTodo(todo).subscribe((data) => { // maj ds l'API
+    this.todoService.updateTodo(todo).subscribe((data) => { 
       this.snackBar.open('Updated!', "", { duration: 2000 });
       this.fetchTodo();
     })

@@ -2,16 +2,15 @@ import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
-  selector: 'app-confirm-delete-dialog',
+  selector: 'app-delete-task-dialog',
   standalone: false,
-  templateUrl: './confirm-delete-dialog.component.html',
-  styleUrl: './confirm-delete-dialog.component.css'
+  templateUrl: './delete-task-dialog.component.html',
+  styleUrl: './delete-task-dialog.component.css'
 })
-
-export class ConfirmDeleteDialogComponent {
-  constructor(
+export class DeleteTaskDialogComponent {
+   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any, 
-    private dialogRef: MatDialogRef<ConfirmDeleteDialogComponent> 
+    private dialogRef: MatDialogRef<DeleteTaskDialogComponent> 
   ) { }
 
 
@@ -22,4 +21,5 @@ export class ConfirmDeleteDialogComponent {
   onCancel(): void {
     this.dialogRef.close(false);
   }
+
 }
