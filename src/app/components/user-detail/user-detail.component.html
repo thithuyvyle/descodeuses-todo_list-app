@@ -1,0 +1,58 @@
+
+<mat-card class="flex-1 items-center p-6 rounded-xl shadow-md">
+    <mat-card-header>
+        <mat-card-title class="text-center"> To do details </mat-card-title>
+    </mat-card-header>
+    <mat-card-content *ngIf="formGroup">
+        <form [formGroup]="formGroup" class="m-6" (ngSubmit)="onSubmitUser()">
+            
+            <div>
+                <mat-form-field class="w-full">
+                    <mat-label> Username </mat-label>
+                    <input formControlName="username" matInput type="text" placeholder="email/username">
+                </mat-form-field>
+            </div>
+
+            <div>
+                <mat-form-field class="w-full">
+                    <mat-label> Last Name </mat-label>
+                     <input formControlName="lastName" matInput type="text" placeholder="Last Name">
+                </mat-form-field>
+            </div>
+
+            <div>
+                <mat-form-field class="w-full">
+                    <mat-label>First Name</mat-label>
+                     <input formControlName="firstName" matInput type="text" placeholder="First Name">
+                </mat-form-field>
+            </div>
+
+            <div>
+                <mat-form-field class=" w-full">
+                    <mat-label>Genre</mat-label>
+                    <mat-select formControlName="genre">
+                        @for (genre of listGenre; track genre.value) {
+                        <mat-option [value]="genre.value">{{genre.text}}</mat-option>
+                        }
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+            <div>
+                <mat-form-field class="w-full">
+                    <mat-label>Role</mat-label>
+                    <mat-select formControlName="role">
+                        @for (item of roles; track item) {
+                        <mat-option [value]="item.role">{{item.role}}</mat-option>
+                        }
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+            <mat-card-actions class="flex justify-between">
+                <button mat-flat-button type="submit" [disabled]="formGroup.pristine">Save</button>
+                <button mat-flat-button type="button" routerLink="/user-list">Cancel</button>
+            </mat-card-actions>
+        </form>
+    </mat-card-content>
+</mat-card>

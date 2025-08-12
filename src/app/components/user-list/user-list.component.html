@@ -1,9 +1,9 @@
 
 <mat-card class="h-full flex flex-col">
-    <form [formGroup]="formGroup" (ngSubmit)="onAddTodo()">
+    <form [formGroup]="formGroup" (ngSubmit)="onAddUser()">
         <div id="barre-saisie" class="flex gap-5 m-6">
-            <mat-form-field class="flex-1">
-                <input formControlName="nom" matInput placeholder="Add id, last name, first name and gender">  
+            <mat-form-field class="flex-1" appearance="outline">
+                <input formControlName="username" matInput placeholder="Add username (email)">  
             </mat-form-field>
             <button mat-fab type="submit"> 
                 <mat-icon>add</mat-icon>
@@ -12,11 +12,16 @@
     </form>
 
     <div id="users-list" >
-        <mat-list>
-            @for(user of users; track user){
-                <mat-list-item>
-                    <span>{{user.id}}, {{user.lastName}}, {{user.firstName}}, {{user.genre}} </span>
-                </mat-list-item>
+       <mat-list>
+            @for(user of users; track user.id){
+            <mat-list-item>
+                <div class="flex items-center">
+                    <span [routerLink]="['/user-detail', user.id]" class="flex-1 cursor-pointer">{{user.username}}</span>
+                    <button mat-icon-button (click)="onRemoveUser(user.id)">
+                        <mat-icon>delete_forever</mat-icon>
+                    </button>
+                </div>
+            </mat-list-item>
             }
         </mat-list>
 

@@ -10,6 +10,8 @@ import { TodoTableComponent } from './components/todo-table/todo-table.component
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { authGuard } from './auth/auth.guard';
 import { LogoutGuard } from './auth/logoutGuard';
+import { UserDetailComponent } from './components/user-detail/user-detail.component';
+import { AdminGuard } from './auth/admin.guard';
 
 
 const routes: Routes = [
@@ -17,7 +19,8 @@ const routes: Routes = [
   {path:'profil', component: ProfilComponent, canActivate: [authGuard]},
   {path:'sign-up', component:SignUpComponent, canActivate:[LogoutGuard]},
   {path:'', component: TodoListComponent, canActivate: [authGuard]}, 
-  {path:'user', component: UserListComponent},
+  {path:'user-list', component: UserListComponent, canActivate:[AdminGuard]},
+  {path:'user-detail/:id', component: UserDetailComponent, canActivate:[AdminGuard]},
   {path:'todo-detail/:id', component: TodoDetailComponent, canActivate: [authGuard]},
   {path:'todo-table', component: TodoTableComponent , canActivate: [authGuard]},
   {path:'dashboard', component: DashboardComponent, canActivate: [authGuard] }

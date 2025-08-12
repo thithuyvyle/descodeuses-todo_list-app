@@ -36,6 +36,8 @@ import { authInterceptor } from './auth/auth.interceptor';
 import {MatDialogModule} from '@angular/material/dialog';
 import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
 import { LogoutConfirmDialogComponent } from './components/logout-confirm-dialog/logout-confirm-dialog.component';
+import { ConfirmDeleteDialogComponent } from './components/confirm-delete-dialog/confirm-delete-dialog.component';
+import { UserDetailComponent } from './components/user-detail/user-detail.component';
 
 
 
@@ -52,6 +54,8 @@ import { LogoutConfirmDialogComponent } from './components/logout-confirm-dialog
     DashboardComponent,
     ConfirmDialogComponent,
     LogoutConfirmDialogComponent,
+    ConfirmDeleteDialogComponent,
+    UserDetailComponent,
 
   ],
   imports: [

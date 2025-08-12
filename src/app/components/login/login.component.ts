@@ -18,9 +18,9 @@ export class LoginComponent implements OnInit {
   userId: string = '';
 
   ngOnInit(): void {
-    this.username = sessionStorage.getItem('username') || '';
+    this.username = localStorage.getItem('username') || '';
 
-    const userStr = sessionStorage.getItem('user');
+    const userStr = localStorage.getItem('user');
     const user = userStr ? JSON.parse(userStr) : null;
     if (user) {
       this.username = user.username;
@@ -39,11 +39,12 @@ export class LoginComponent implements OnInit {
 
       this.authService.login(credentials).subscribe({
         next: (res) => {
-          sessionStorage.setItem('authToken', res.token);
-          sessionStorage.setItem('user', JSON.stringify({
+        /*  localStorage.setItem('role',res.role);
+          localStorage.setItem('user', JSON.stringify({
             id: res.id,
             username: res.username
           }));
+    */
           this.router.navigateByUrl('');
         },
         error: (err) => {

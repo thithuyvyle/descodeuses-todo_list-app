@@ -1,8 +1,8 @@
 export interface User { 
-    id: number;
+    id: number | null;
     username: string | null;
     lastName:string | null;
     firstName: string | null;
     genre: string | null;
-    role: string; // ex: ['ROLE_USER']
+    role: string | null; // ex: ['ROLE_USER']
 }

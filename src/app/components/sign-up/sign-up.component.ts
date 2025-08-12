@@ -3,11 +3,11 @@ import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators }
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { emailTakenValidator } from '../../validators';
 
 export function passwordMatchValidator(control: AbstractControl): ValidationErrors | null {
   const password = control.get('password')?.value;
   const confirmPassword = control.get('passwordConfirm')?.value;
-
   return password === confirmPassword ? null : { passwordMismatch: true };
 }
 
@@ -25,6 +25,7 @@ export class SignUpComponent implements OnInit {
 
   hidePassword = true;
   hideConfirmPassword = true;
+  errorMessage: string | null = null;
 
   listGenre = [
     { text: 'Female', value: 'F' },
@@ -33,14 +34,15 @@ export class SignUpComponent implements OnInit {
 
   ngOnInit(): void {
     this.signupForm = this.fb.group({
-      lastname: [""],
-      firstname: [""],
-      email: ["", [Validators.required, Validators.email]],
+      lastName: [""],
+      firstName: [""],
+      email: ["", [Validators.required, Validators.email],
+        [emailTakenValidator(this.authService)]],
       password: ["", [Validators.required, Validators.minLength(8)]],
       passwordConfirm: ["", [Validators.required, Validators.minLength(8)]],
       genre: [""],
     }, {
-      validators: passwordMatchValidator  
+      validators: passwordMatchValidator
     });
   }
 
@@ -49,8 +51,8 @@ export class SignUpComponent implements OnInit {
       const userData = {
         username: this.signupForm.value.email,
         password: this.signupForm.value.password,
-        lastname: this.signupForm.value.lastname,
-        firstname: this.signupForm.value.firstname,
+        lastName: this.signupForm.value.lastName,
+        firstName: this.signupForm.value.firstName,
         genre: this.signupForm.value.genre,
         role: 'ROLE_USER'
       };
@@ -61,6 +63,7 @@ export class SignUpComponent implements OnInit {
         },
         error: (error) => {
           console.error('Erreur lors de l\'enregistrement', error);
+          this.errorMessage = error.error;  
         }
       });
     } else {
@@ -69,5 +72,5 @@ export class SignUpComponent implements OnInit {
   }
 
 
-  
+
 }

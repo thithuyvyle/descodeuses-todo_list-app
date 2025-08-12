@@ -1,7 +1,7 @@
 import { HttpInterceptorFn } from '@angular/common/http';
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
-  const token = localStorage.getItem('token');
+  const token = localStorage.getItem('authToken'); 
   // Ne pas ajouter d'en-tête Authorization pour les routes /auth/signup et /auth/login sinon erreur 403 
   if (
     req.url.includes('/auth/signup') ||

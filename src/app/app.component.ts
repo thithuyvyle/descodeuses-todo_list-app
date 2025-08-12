@@ -3,7 +3,6 @@ import { AuthService } from './services/auth.service';
 import { NavigationEnd, Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
-import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
 import { LogoutConfirmDialogComponent } from './components/logout-confirm-dialog/logout-confirm-dialog.component';
 
 @Component({
@@ -19,7 +18,10 @@ export class AppComponent implements OnInit {
   constructor(public authService: AuthService, private router: Router, private snackBar: MatSnackBar, private dialog: MatDialog) {
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd && event.url === '/sign-up') {
-        this.logout();
+        const currentUser = this.authService.getCurrentUser();
+        if (currentUser && this.authService.getCurrentUser()) {
+          this.logoutButton();
+        }
       }
     })
   }
@@ -31,15 +33,18 @@ export class AppComponent implements OnInit {
     });
   }
 
-  logout(): void {
+  logoutButton(): void {
     const dialogRef = this.dialog.open(LogoutConfirmDialogComponent);
 
     dialogRef.afterClosed().subscribe(confirmed => {
-       if (confirmed) {
+      if (confirmed) {
+             console.log('Logout confirmed');
         this.authService.logout();
+        console.log('After authService.logout, localStorage:', localStorage);
+
         this.snackBar.open('Disconnected !', "", { duration: 2000 });
         this.router.navigate(['/login']);
-    }
+      }
     });
   }
 

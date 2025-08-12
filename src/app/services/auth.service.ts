@@ -13,12 +13,13 @@ export class AuthService {
   private apiUrl = environment.apiUrl + '/auth/login';
   private apiUrl2 = environment.apiUrl + '/auth/signup';
 
+
   private currentUserSubject = new BehaviorSubject<any>(null);
   currentUser$ = this.currentUserSubject.asObservable();
 
-  constructor(private http: HttpClient) { }
-  isAdmin = false;
-  
+  constructor(private http: HttpClient) {
+  }
+
   login(credentials: any): Observable<any> {
     return this.http.post(this.apiUrl, credentials).pipe(
       tap((response: any) => {
@@ -35,7 +36,9 @@ export class AuthService {
         };
 
         localStorage.setItem('user', JSON.stringify(user));
-        localStorage.setItem('token', response.token);
+        localStorage.setItem('authToken', token);
+        localStorage.setItem('role', decoded.role);
+
         this.currentUserSubject.next(user);
       })
     );
@@ -46,9 +49,11 @@ export class AuthService {
   }
 
   logout(): void {
-    localStorage.removeItem('token');
-    localStorage.removeItem('user'); 
-   this.currentUserSubject.next(null); 
+      console.log('Logout called, clearing localStorage keys');
+    localStorage.removeItem('authToken');
+    localStorage.removeItem('user');
+    localStorage.removeItem('role');
+    this.currentUserSubject.next(null);
   }
 
   getCurrentUser(): User | null {
@@ -60,7 +65,11 @@ export class AuthService {
       console.error('Erreur de parsing du user dans localStorage:', error);
       return null;
     }
-    
+
+  }
+
+  getToken(): string | null {
+    return localStorage.getItem('authToken');
   }
 
   loadUserFromStorage() {
@@ -69,4 +78,21 @@ export class AuthService {
       this.currentUserSubject.next(JSON.parse(user));
     }
   }
+
+  get isAdmin(): boolean {
+    const user = this.getCurrentUser();
+    if (!user) return false;
+
+    if (Array.isArray(user.role)) {
+      return user.role.includes('ROLE_ADMIN');
+    }
+
+    return user.role === 'ROLE_ADMIN';
+  }
+
+
+  checkEmailAvailability(email: string): Observable<boolean> {
+    return this.http.get<boolean>(`${environment.apiUrl}/api/users`, { params: { email } });
+  }
+
 }

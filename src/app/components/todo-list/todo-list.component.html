@@ -15,8 +15,7 @@
         <mat-list>
             @for(todo of todos; track todo.id){
             <mat-list-item>
-                <div class="flex items-center"> <!--centrer icone et texte verticalement-->
-                    <!--$event : évènement qui déclenche le changement , todo.id est dynamique et ajouté au path-->
+                <div class="flex items-center">
                     <mat-checkbox [checked]="todo.completed" (change)="onUpdateTodo($event,todo)"> </mat-checkbox>
                     <span [routerLink]="['/todo-detail', todo.id]" class="flex-1 cursor-pointer">{{todo.title}}</span>
                     <button mat-icon-button (click)="onRemoveTodo(todo.id)">
