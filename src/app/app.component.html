@@ -9,7 +9,7 @@
          <a mat-list-item routerLink="/todo-table">Table of Todo list</a>
          <a mat-list-item routerLink="/dashboard">Dashboard</a>
          @if(authService.isAdmin) {
-         <a mat-list-item routerLink="/user-list">User List</a>
+         <a id="user-list-page" mat-list-item routerLink="/user-list">User List</a>
          }
          <a mat-list-item routerLink="/profil">Profil</a>
          <a id="logout-button" mat-list-item *ngIf="authService.currentUser$ | async as currentUser" (click)="logoutButton()">

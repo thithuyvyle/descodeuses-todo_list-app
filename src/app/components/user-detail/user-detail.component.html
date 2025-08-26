@@ -1,5 +1,5 @@
 
-<mat-card class="flex-1 items-center p-6 rounded-xl shadow-md">
+<mat-card id="user-detail-page" class="flex-1 items-center p-6 rounded-xl shadow-md">
     <mat-card-header>
         <mat-card-title class="text-center"> To do details </mat-card-title>
     </mat-card-header>
@@ -38,7 +38,7 @@
                 </mat-form-field>
             </div>
 
-            <div>
+            <div id="user-role">
                 <mat-form-field class="w-full">
                     <mat-label>Role</mat-label>
                     <mat-select formControlName="role">
@@ -50,7 +50,7 @@
             </div>
 
             <mat-card-actions class="flex justify-between">
-                <button mat-flat-button type="submit" [disabled]="formGroup.pristine">Save</button>
+                <button id="save-user-button" mat-flat-button type="submit" [disabled]="formGroup.pristine">Save</button>
                 <button mat-flat-button type="button" routerLink="/user-list">Cancel</button>
             </mat-card-actions>
         </form>

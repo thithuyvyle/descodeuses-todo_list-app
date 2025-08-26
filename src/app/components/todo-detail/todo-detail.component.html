@@ -1,12 +1,12 @@
 <!-- @if(formGroup = !null) { }-->
 
-<mat-card class="flex-1 items-center p-6 rounded-xl shadow-md">
+<mat-card class="flex-1 items-center p-6 rounded-xl shadow-md" >
     <mat-card-header>
         <mat-card-title class="text-center"> To do details </mat-card-title>
     </mat-card-header>
     <mat-card-content *ngIf="formGroup">
         <form [formGroup]="formGroup" class="m-6" (ngSubmit)="onSubmitTodo()">
-            <div>
+            <div id="todo-detail-page">
                 <mat-form-field class="w-full">
                     <mat-label>User connected</mat-label>
                     <input matInput type="text" formControlName="userConnected" readonly />
@@ -16,7 +16,7 @@
             <div>
                 <mat-form-field class="w-full">
                     <mat-label> Title </mat-label>
-                    <input formControlName="title" matInput type="text" placeholder="title">
+                    <input id="todo-title" formControlName="title" matInput type="text" placeholder="title">
                 </mat-form-field>
             </div>
 
@@ -87,7 +87,7 @@
                 <mat-checkbox formControlName="completed"> Completed </mat-checkbox>
             </div>
             <mat-card-actions class="flex justify-between">
-                <button mat-flat-button type="submit" [disabled]="formGroup.pristine">Save</button>
+                <button id="save-button" mat-flat-button type="submit" [disabled]="formGroup.pristine">Save</button>
                 <button mat-flat-button type="button" routerLink="">Cancel</button>
             </mat-card-actions>
         </form>

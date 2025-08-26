@@ -29,15 +29,15 @@
             <div>
                 <mat-form-field class=" w-full">
                     <mat-label> Login User </mat-label>
-                    <input formControlName="email" matInput type="email" placeholder="Enter your email"
+                    <input id="email-signup" formControlName="email" matInput type="email" placeholder="Enter your email"
                         pattern="[^@]+@[^@]+\.[a-zA-Z]{2,6}">
                 </mat-form-field>
             </div>
 
             <div>
                 <mat-form-field class="w-full">
-                    <mat-label>Password</mat-label>
-                    <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="password"
+                    <mat-label> Password </mat-label>
+                    <input id="password-signup" matInput [type]="hidePassword ? 'password' : 'text'" formControlName="password"
                         placeholder="Min. 8 characters"> <!-- pattern="/^[a-zA-Z0-9!@#\$%\^\&*_=+-]{8,12}$/g" -->
                     <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword"
                         [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword">
@@ -48,20 +48,20 @@
             <div>
                 <mat-form-field class=" w-full">
                     <mat-label> Confirm your password </mat-label>
-                    <input formControlName="passwordConfirm" matInput type="password">
+                    <input id="password-signup-confirm" formControlName="passwordConfirm" matInput type="password">
                 </mat-form-field>
             </div>
 
-            <div *ngIf="signupForm.hasError('passwordMismatch') && signupForm.get('passwordConfirm')?.touched"
+            <div id="password-not-matching" *ngIf="signupForm.hasError('passwordMismatch') && signupForm.get('passwordConfirm')?.touched"
                 class="text-red-500 text-sm mt-2 mb-2">
                 Passwords do not match.
             </div>
-            <div *ngIf="errorMessage" class="error-message text-red-500 text-sm mt-2 mb-2">
+            <div id="error-message" *ngIf="errorMessage" class="error-message text-red-500 text-sm mt-2 mb-2">
                 {{ errorMessage }}
             </div>
             <span>All (*) are required</span>
 
-            <button [disabled]="signupForm.invalid" mat-flat-button type="submit" class="w-full m-4"> Sign Up </button>
+            <button id="signup-button" [disabled]="signupForm.invalid" mat-flat-button type="submit" class="w-full m-4"> Sign Up </button>
 
         </form>
     </div>
