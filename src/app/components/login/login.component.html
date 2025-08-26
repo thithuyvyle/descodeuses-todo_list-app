@@ -7,28 +7,28 @@
             <div id="email-container">
                 <mat-form-field class=" w-full">
                     <mat-label>Username</mat-label>
-                    <input matInput formControlName="username" type="email" placeholder="ex:xxxx@gmail.com" />
+                    <input matInput formControlName="username" type="email" placeholder="ex:xxxx@gmail.com" id="username-login"/>
                 </mat-form-field>
             </div>
 
             <div id="password-container">
                 <mat-form-field class=" w-full">
                     <mat-label>Password</mat-label>
-                    <input matInput formControlName="password" type="password">
+                    <input matInput formControlName="password" type="password" id="password-login">
                 </mat-form-field>
             </div>
 
-            <div *ngIf="loginForm.hasError('credentialsMismatch')" class="text-red-500 text-sm mt-2 mb-2">
+            <div id="wrong-login" *ngIf="loginForm.hasError('credentialsMismatch')" class="text-red-500 text-sm mt-2 mb-2">
                 Username / password do not match.
             </div>
 
             <span> Not registered yet? Click
-                <a routerLink="/sign-up" style="text-decoration: none; color: inherit;">
+                <a routerLink="/sign-up" id="go-to-register-page" style="text-decoration: none; color: inherit;">
                     <strong> here </strong>
                 </a>
             </span>
             <div class="flex m-4 justify-center">
-                <button mat-flat-button type="submit">Log In </button>
+                <button mat-flat-button type="submit" id="login-button">Log In </button>
             </div>
 
         </form>

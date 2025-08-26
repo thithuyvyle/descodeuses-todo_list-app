@@ -51,6 +51,10 @@ export class TodoService {
     return this.http.get<Project[]>(this.apiURL3);
   }
 
+  createProject(item: Project) {
+     return this.http.post<Todo>(this.apiURL3, item); 
+  }
+
   // filtrer par user connected
   getTodosByUser(userId: number): Observable<Todo[]> {
     return this.http.get<Todo[]>(`${this.apiURL}/user`, { params: { userId } });

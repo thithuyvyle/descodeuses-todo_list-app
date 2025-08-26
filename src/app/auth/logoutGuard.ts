@@ -14,7 +14,7 @@ export class LogoutGuard implements CanActivate {
   canActivate(): Observable<boolean> {
     return this.authService.currentUser$.pipe(
       switchMap(user => {
-        const isLoggedIn = !!user && !!this.authService.getCurrentUser(); // Vérifie aussi token
+        const isLoggedIn = !!user && !!this.authService.getCurrentUser(); 
         if (isLoggedIn) {
           const dialogRef = this.dialog.open(ConfirmDialogComponent, {
             data: { message: 'You are already logged in. Do you want to log out?' }

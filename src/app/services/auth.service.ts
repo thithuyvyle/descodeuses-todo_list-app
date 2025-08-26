@@ -49,7 +49,7 @@ export class AuthService {
   }
 
   logout(): void {
-      console.log('Logout called, clearing localStorage keys');
+
     localStorage.removeItem('authToken');
     localStorage.removeItem('user');
     localStorage.removeItem('role');

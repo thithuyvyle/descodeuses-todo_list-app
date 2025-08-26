@@ -12,7 +12,7 @@
          <a mat-list-item routerLink="/user-list">User List</a>
          }
          <a mat-list-item routerLink="/profil">Profil</a>
-         <a mat-list-item *ngIf="authService.currentUser$ | async as currentUser" (click)="logoutButton()">
+         <a id="logout-button" mat-list-item *ngIf="authService.currentUser$ | async as currentUser" (click)="logoutButton()">
             Log out&nbsp;<strong>: {{ currentUser.username }}</strong>
          </a>
       </mat-nav-list>
@@ -22,7 +22,7 @@
       <div class="flex flex-col h-screen">
          <div id="div-toolbar">
             <mat-toolbar>
-               <button mat-icon-button (click)="sidenav.toggle()">
+               <button id="menu-access" mat-icon-button (click)="sidenav.toggle()">
                   <mat-icon>menu</mat-icon>
                </button>
                <span>

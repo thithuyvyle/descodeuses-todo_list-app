@@ -39,8 +39,7 @@ export class AppComponent implements OnInit {
     dialogRef.afterClosed().subscribe(confirmed => {
       if (confirmed) {
         this.authService.logout();
-        console.log('After authService.logout, localStorage:', localStorage);
-
+        
         this.snackBar.open('Disconnected !', "", { duration: 2000 });
         this.router.navigate(['/login']);
       }

@@ -54,7 +54,7 @@ export class UserDetailComponent implements OnInit {
   onSubmitUser() {
     if (this.formGroup.valid) {
       this.userService.updateUser(this.formGroup.value).subscribe(data => {
-        console.log(this.formGroup.value);
+ 
         this.snackBar.open('Saved !', "", { duration: 2000 });
         this.router.navigateByUrl('/user-list');
       })

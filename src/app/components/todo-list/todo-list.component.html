@@ -2,10 +2,10 @@
     <form [formGroup]="formGroup" (ngSubmit)="onAddTodo()">
         <div id="barre-saisie" class="flex gap-5 m-6">
             <mat-form-field class="flex-1" appearance="outline">
-                <input formControlName="title" matInput placeholder="Add To-do here">
+                <input formControlName="title" id="task-to-add" matInput placeholder="Add To-do here">
             </mat-form-field>
 
-            <button mat-fab type="submit"> 
+            <button id="add-task-button" mat-fab type="submit"> 
                 <mat-icon>add</mat-icon>
             </button>
         </div>
